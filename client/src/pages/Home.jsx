@@ -2,6 +2,7 @@ import React from "react";
 import Header from "../components/Header";
 import Steps from "../components/Steps";
 import GenerateBtn from "../components/GenerateBtn";
+import Login from "../components/Login";
 
 const Home = () => {
   return (
@@ -9,6 +10,7 @@ const Home = () => {
       <Header />
       <Steps/>
       <GenerateBtn/>
+      <Login/>
     </div>
   );
 };
