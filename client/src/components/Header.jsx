@@ -7,6 +7,15 @@ import { motion } from "motion/react"
 const Header = () => {
     const navigate = useNavigate();
     const {showLogin , setShowLogin} = useContext(AppContext)
+    const { user , setUser} = useContext(AppContext);
+
+    const onclickhandler = () =>{
+      if(!user){
+        setShowLogin(true);
+      }else{
+        navigate("/result");
+      }
+    }
   return (
     <motion.div
     initial={{opacity:0.2 ,y:100}}
@@ -35,7 +44,9 @@ const Header = () => {
         initial={{opacity:0}}
         animate={{opacity:1}}
         transition={{default:{duration:0.5} , opacity:{delay:0.8 , duration:1.1}}}
-         onClick={()=>navigate("/result")} className="sm:text-lg text-white bg-black w-auto mt-8 px-12 py-2.5 flex items-center gap-2 rounded-full hover:scale-105 transition-all duration-400">
+         onClick={
+          onclickhandler
+          } className="sm:text-lg text-white bg-black w-auto mt-8 px-12 py-2.5 flex items-center gap-2 rounded-full hover:scale-105 transition-all duration-400">
             Generate Images
             <img className="h-6" src={assets.star_group}/>
         </motion.button>

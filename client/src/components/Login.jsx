@@ -6,13 +6,16 @@ const Login = () => {
     const [state , setState] = useState('Login');
     const {showLogin , setShowLogin} = useContext(AppContext)
 
-    useEffect(()=>{
+   useEffect(() => {
+    if (showLogin) {
         document.body.style.overflow = 'hidden';
-
-        return ()=>{
-            document.body.style.overflow = 'unset';
-        }
-    },[])
+    } else {
+        document.body.style.overflow = 'unset';
+    }
+    return () => {
+        document.body.style.overflow = 'unset';
+    };
+}, [showLogin]);
   return (
     <>
     {showLogin && <div className='absolute top-0 bottom-0 right-0 left-0 z-10 backdrop-blur-sm bg-black/30 flex justify-center items-center'>
