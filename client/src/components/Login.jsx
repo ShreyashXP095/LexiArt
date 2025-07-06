@@ -6,6 +6,11 @@ const Login = () => {
     const [state , setState] = useState('Login');
     const {showLogin , setShowLogin} = useContext(AppContext)
 
+    const [password, setPassword] = useState('');
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState("")
+    
+
    useEffect(() => {
     if (showLogin) {
         document.body.style.overflow = 'hidden';
