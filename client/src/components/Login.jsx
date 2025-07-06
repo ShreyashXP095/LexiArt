@@ -1,18 +1,47 @@
 import React, { use, useContext, useEffect, useState } from 'react'
 import { assets } from '../assets/assets'
 import { AppContext } from '../context/AppContext';
+import toast from 'react-hot-toast';
+import axios from "axios"
 
 const Login = () => {
     const [state , setState] = useState('Login');
-    const {showLogin , setShowLogin} = useContext(AppContext)
+    const {showLogin , setShowLogin , backendUrl , setToken , setUser} = useContext(AppContext)
 
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
-    const [email, setEmail] = useState("")
+    const [email, setEmail] = useState('')
 
-    const onsubmithandler = async(e)=>{
+    const onsubmithandler = async (e)=>{
         e.preventDefault();
-        
+
+        try {
+            if(state === 'Login'){
+               const {data} =  await axios.post(backendUrl+'/api/user/login' , {email, password});
+
+               if(data.success){
+                setToken(data.token);
+                setUser(data.user);
+                localStorage.setItem('token',data.token);
+                setShowLogin(false);
+               }else{
+                    toast.error(data.message);
+               }
+            }else{
+                const {data} =  await axios.post(backendUrl+'/api/user/register' , {name , email, password});
+
+               if(data.success){
+                setToken(data.token);
+                setUser(data.user);
+                localStorage.setItem('token',data.token);
+                setShowLogin(false);
+               }else{
+                    toast.error(data.message);
+               }
+            }
+        } catch (error) {
+            toast.error(error.message);
+        }
     }
 
 
